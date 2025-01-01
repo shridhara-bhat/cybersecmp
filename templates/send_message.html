@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Send Message</title>
+</head>
+<body>
+    <h2>Send a Message</h2>
+    <form method="POST" action="{{ url_for('send_message') }}" enctype="multipart/form-data">
+        <label for="recipient_email">Recipient's Email:</label>
+        <input type="email" name="recipient_email" id="recipient_email" required>
+        <br><br>
+        <label for="message">Message:</label>
+        <textarea name="message" id="message" required></textarea>
+        <br><br>
+        <label for="file">Attach a file:</label>
+        <input type="file" name="file" id="file">
+        <br><br>
+        <button type="submit">Send Message</button>
+    </form>
+    <br>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <br>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</body>
+</html>

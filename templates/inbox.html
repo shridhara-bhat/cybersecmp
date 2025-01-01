@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inbox</title>
+</head>
+<body>
+    <h2>Inbox</h2>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>
+                    <strong>From: </strong>{{ message.sender }}<br>
+                    <strong>Message:</strong> {{ honey_decrypt(message.encrypted_data, 'correct_key') }}<br>
+                    {% if message.file_name %}
+                        <strong>Attachment:</strong> <a href="{{ url_for('static', filename='uploads/' + message.file_name) }}">Download</a><br>
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>You have no messages.</p>
+    {% endif %}
+    <br>
+    <a href="{{ url_for('dashboard') }}">Back to Dashboard</a>
+</body>
+</html>
